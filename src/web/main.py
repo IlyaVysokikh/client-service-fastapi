@@ -3,9 +3,9 @@ from fastapi import FastAPI
 
 def create_app() -> FastAPI:
     app = FastAPI(
-        title="client service api",
+        title="user service api",
         docs_url="/api/docs",
-        description="api for client service",
+        description="api for user service",
         debug=True,
     )
 
