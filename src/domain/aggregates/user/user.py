@@ -1,26 +1,19 @@
 import uuid
-from dataclasses import dataclass
 
+from sqlalchemy import Column, String, Enum, UUID
+
+from src.domain.aggregates.base import Base
 from src.domain.aggregates.user.user_errors import UserErrors
-from src.domain.aggregates.user.sex import Sex
 from src.domain.result.result_error import ResultError
 
 
-@dataclass(eq=False)
-class User:
-    oid: uuid.UUID
-    name: str
-    last_name: str
-    email: str
-    phone: str
-    sex: Sex
+class User(Base):
+    __tablename__ = "t_user"
 
-    MIN_NAME_LENGTH: int = 2
+    oid = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name = Column(String, nullable=False)
+    last_name = Column(String, nullable=False)
+    email = Column(String, unique=True, nullable=False)
+    phone = Column(String, unique=True, nullable=True)
 
-    def validate_name(self) -> ResultError | None:
-        if self.name is None or len(self.name) > self.MIN_NAME_LENGTH:
-            return UserErrors.too_short_name
-
-    def validate_email(self) -> ResultError | None:
-        pass
 

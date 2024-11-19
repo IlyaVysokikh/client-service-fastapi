@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 
+from src.web.user_handlers import user_router
+
 
 def create_app() -> FastAPI:
     app = FastAPI(
@@ -9,4 +11,9 @@ def create_app() -> FastAPI:
         debug=True,
     )
 
+    app.include_router(user_router, prefix="/users")
+
     return app
+
+
+app = create_app()

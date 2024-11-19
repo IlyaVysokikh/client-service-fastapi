@@ -5,7 +5,7 @@ from src.domain.result.result_error import ResultError
 
 
 @dataclass
-class Result(ABC):
+class AbstractResult(ABC):
 
     @property
     @abstractmethod
