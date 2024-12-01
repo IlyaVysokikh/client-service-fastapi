@@ -6,15 +6,31 @@ services:
       context: ..
       dockerfile: Dockerfile
 
-
     ports:
-      - "${API_PORT}:8000"
+      - "8000:8000"
 
     volumes:
       - ../src/:/src/
 
-#    depends_on:
-#      kafka:
-#        condition: service_healthy
+    environment:
+      - PYTHONPATH=/src
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - POSTGRES_HOST=postgresql
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=mydatabase
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+
+    depends_on:
+      - rabbitmq
+      - postgresql
+
+    networks:
+      - mynetwork
 
     command: "uvicorn --factory src.web.main:create_app --timeout-graceful-shutdown 2 --host 0.0.0.0 --port 8000 --reload"
+
+networks:
+  mynetwork:
+    driver: bridge  # Теперь сеть создается автоматически

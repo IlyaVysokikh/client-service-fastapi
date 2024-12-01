@@ -1,8 +1,8 @@
+import uuid
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
 from src.domain.aggregates.user.user import User
-from src.domain.aggregates.user.register_result import RegisterResult
 from src.domain.result.abstract_result_with_value import AbstractResultWithValue
 
 
@@ -15,7 +15,7 @@ class UserRepository(ABC):
             last_name: str,
             email: str,
             password: str
-    ) -> AbstractResultWithValue[RegisterResult]:
+    ) -> AbstractResultWithValue[uuid.UUID]:
         pass
 
     @abstractmethod

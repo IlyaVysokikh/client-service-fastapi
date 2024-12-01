@@ -11,9 +11,9 @@ from src.web.user_handlers import user_router
 
 def create_app() -> FastAPI:
     app = FastAPI(
-        title="user service api",
+        title="auth service api",
         docs_url="/api/docs",
-        description="api for user service",
+        description="api for auth service",
         debug=True,
     )
 

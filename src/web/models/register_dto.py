@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from src.application.user.register_command import RegisterCommand
+from src.application.auth.register_command import RegisterCommand
 
 
 class RegisterDto(BaseModel):
