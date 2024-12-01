@@ -33,4 +33,4 @@ services:
 
 networks:
   mynetwork:
-    driver: bridge  # Теперь сеть создается автоматически
+    driver: bridge

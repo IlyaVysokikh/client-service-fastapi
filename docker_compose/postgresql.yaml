@@ -16,7 +16,7 @@ services:
 
 networks:
   mynetwork:
-    driver: bridge  # Сеть будет создана автоматически
+    driver: bridge
 
 volumes:
   postgres_data:
