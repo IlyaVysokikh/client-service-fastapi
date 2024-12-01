@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  postgresql:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge  # Сеть будет создана автоматически
+
+volumes:
+  postgres_data:
