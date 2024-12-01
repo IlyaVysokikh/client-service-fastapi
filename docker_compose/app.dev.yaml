@@ -1,20 +1,14 @@
-version: '3.9'
-
 services:
   main-app:
     build:
       context: ..
       dockerfile: Dockerfile
-
-
     ports:
       - "${API_PORT}:8000"
-
     volumes:
-      - ../src/:/src/
-
-#    depends_on:
-#      kafka:
-#        condition: service_healthy
-
-    command: "uvicorn --factory web.main:create_app --timeout-graceful-shutdown 2 --host 0.0.0.0 --port 8000 --reload"
+      - ../src:/src
+    env_file:
+      - .env
+    environment:
+      - PYTHONPATH=/src  # задаем PYTHONPATH на уровне контейнера
+    command: "uvicorn --factory src.web.main:create_app --timeout-graceful-shutdown 2 --host 0.0.0.0 --port 8000 --reload"

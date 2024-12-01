@@ -1,29 +1,29 @@
 DC = docker compose
 APP = docker_compose/app.yaml
-# Убраны KAFKA и MONGO
+RABBITMQ = docker_compose/rabbitmq.yaml
+POSTGRESQL = docker_compose/postgresql.yaml
 APP_SERVICE = main-app
-ENV = --env-file .env
 
 .PHONY: app-dev
 app-dev:
-	${DC} -f ${APP} ${ENV} up --build -d
+	${DC} -f ${APP} -f ${RABBITMQ} -f ${POSTGRESQL} up --build -d
 
 .PHONY: app-dev-logs
 app-dev-logs:
-	${DC} -f ${APP} logs -f
+	${DC} -f ${APP} -f ${RABBITMQ} -f ${POSTGRESQL} logs -f
 
 .PHONY: down-dev
 down-dev:
-	${DC} -f ${APP} ${ENV} down
+	${DC} -f ${APP} -f ${RABBITMQ} -f ${POSTGRESQL} down
 
 .PHONY: down
 down:
-	${DC} -f ${APP} ${ENV} down
+	${DC} -f ${APP} -f ${RABBITMQ} -f ${POSTGRESQL} down
 
 .PHONY: purge
 purge:
-	# Здесь тоже удалены все строки, связанные с Kafka, Mongo и Mongo Express
-	${DC} -f ${ENV} down -v
+	# Удаляем все данные, включая volumes
+	${DC} -f ${APP} -f ${RABBITMQ} -f ${POSTGRESQL} down -v
 
 .PHONY: shell
 shell:

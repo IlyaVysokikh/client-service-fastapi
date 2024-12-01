@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 
 @dataclass(frozen=True, eq=False)
-class IHandler[TParameters, TResult](ABC):
+class Handler[TParameters, TResult](ABC):
     @abstractmethod
-    def execute(self, parameters: TParameters) -> TResult:
+    async def execute(self, parameters: TParameters) -> TResult:
         pass
